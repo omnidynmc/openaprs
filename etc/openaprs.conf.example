@@ -1,0 +1,460 @@
+##########################################################################
+## Dynamic Networking Solutions                                         ##
+##########################################################################
+## OpenAPRS, Internet APRS MySQL Injector                               ##
+## Copyright (C) 1999 Gregory A. Carter                                 ##
+##                    Dynamic Networking Solutions                      ##
+##                                                                      ##
+## This program is free software; you can redistribute it and/or modify ##
+## it under the terms of the GNU General Public License as published by ##
+## the Free Software Foundation; either version 1, or (at your option)  ##
+## any later version.                                                   ##
+##                                                                      ##
+## This program is distributed in the hope that it will be useful,      ##
+## but WITHOUT ANY WARRANTY; without even the implied warranty of       ##
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        ##
+## GNU General Public License for more details.                         ##
+##                                                                      ##
+## You should have received a copy of the GNU General Public License    ##
+## along with this program; if not, write to the Free Software          ##
+## Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.            ##
+##########################################################################
+#$Id: example.conf,v 1.5 2003/07/10 17:20:24 omni Exp $
+##########################################################################
+
+##########################################################################
+## Variable Key                                                         ##
+##########################################################################
+##  Type            Description / Example                               ##
+## -------------------------------------------------------------------- ##
+## <bool>         : Either "true" or "false".                           ##
+##                  Example: true                                       ##
+## <int>          : Integer value, 0-9, multiple numbers allowed.       ##
+##                  Example: 10284                                      ##
+## <string>       : Unquoted string of characters.                      ##
+##                  Example: The cat is blue.                           ##
+##                                                                      ##
+##########################################################################
+
+##########################################################################
+## Server Settings                                                      ##
+##########################################################################
+
+app {
+  stompstats {
+    source "openaprs";
+    instance "optimus";
+    interval 30;
+    hosts "10.0.1.3:61613";
+    login "openaprs-prod-stompstats";
+    passcode "openaprs-prod-stompstats";
+    destination "/topic/stats.prod";
+  } # stompstats
+} # app
+
+openaprs {
+  #####
+  # BURST <string>
+  #
+  # Burst to send automagically on connect.  Useful for sending the
+  # standard PASS and SERVER pre auth lines.
+  #
+  burst "bursts/auth.burst";
+
+  create {
+    enable true;
+
+    #####
+    # CALLSIGN <string>
+    # 
+    # Callsign to forward on packets to APRS-IS as.
+    # 
+    callsign "N6NAR";
+
+    destination "APOA00";
+  } # create
+
+  email {
+    enable true;
+    alias1 "EMAIL";
+    alias2 "OPENAPRS";
+    port 25;
+    host "localhost";
+  } # openaprs.email
+
+  aprsmail {
+    enable true;
+  } # openaprs.aprsmail
+
+  threads {
+    worker 1 {
+      maxqueue 20;
+      stats.interval 3600;
+      memcached {
+        expire 14400;
+      } # memcached
+
+      stomp {
+        hosts "10.0.1.3:61613";
+        login "openaprs-prod-worker";
+        passcode "openaprs-prod-worker";
+      } # stomp
+
+    } # worker
+  } # threads
+
+  ####
+  # MESSAGE
+  #
+  # Messaging support for the website.
+  #
+  #
+  message {
+    ####
+    # ACK <boolean>
+    #
+    # Send acknowledgements for users actively viewing
+    # messages from the website.
+    #
+    ack true;
+    callsign "N6NAR";
+    timeout 900;
+    retry 15;
+
+    ####
+    # FRIENDS <bool>
+    #
+    # Update friends table for website users.
+    #
+    friends false;
+  } #message
+
+  position {
+    tactical false;
+  } # position
+
+  object {
+    timeout 300;
+    retry 60;
+  } # object
+
+  toggles {
+    #debug false;
+    echo true;
+    fork false;
+    raw false;
+    log.sql true;
+  } # openaprs.toggles
+
+  verify {
+    enable true;
+    reply true;
+    callsign "N6NAR";
+    mycall "N6NAR";
+  } # verify
+
+  sql {
+    enable true;
+    inject true;
+    drop_duplicates true;
+    host "localhost";
+    user "openaprs";
+    pass "4o2p3E3N3";
+    db "openaprs";
+
+    create.interval 1;
+
+    ##
+    # CLEANUP <int>
+    #
+    # Number of seconds old an object must be before it is deleted.
+    #
+    cleanup 864000 {
+      enable false;
+
+      ## LIMIT <int>
+      #
+      # Limits the number of objects to clean up at a time.
+      #
+      limit 10000 {
+        cache_30m 1000;
+        cache_24hr 2000;
+        lastposition 1000;
+        lastweather 1000;
+        messages 1000;
+        position 2000;
+        raw 20000;
+        raw_errors 20000;
+        weather 1000;
+        telemetry 1000;
+        igated 1000;
+      } # openaprs.sql.cleanup.limit
+
+      tables {
+        cache_30m 1800;
+        cache_24hr 86400;
+        raw 14400;
+        raw_errors 14400;
+        position 604800;
+        messages 604800;
+        weather 2592000;
+        telemetry 31536000;
+        igated 172800;
+      } # openaprs.sql.cleanup.tables
+
+      ##
+      # INTERVAL <int>
+      #
+      # How often in seconds to run cleanup routine.
+      #
+      #interval 7200;
+      interval 30;
+    } # openaprs.sql.cleanup
+  } # openaprs.sql
+
+  read {
+    bytes 1500;
+    backlog 1048576;
+  } # openaprs.read
+
+  #####
+  # SERVER <string>
+  #
+  # IP or hostname of APRS server you want to connect to.
+  #
+  server1 "first.aprs.net, second.aprs.net, third.aprs.net" {
+    enabled true;
+    timeout 30;
+    connect.interval 30;
+    stats.interval 3600;
+    create true;
+
+    stomp {
+      hosts "10.0.1.3:61613";
+      login "openaprs-prod-uplink";
+      passcode "openaprs-prod-uplink";
+    } # stomp
+
+    #####
+    # PORT <int>
+    #
+    # Port of APRS server you want to connect to.  Standard APRS daemon server
+    # to server port is 23.
+    #
+    port 10152;
+
+    burst "bursts/auth.burst";
+  } # openaprs.server
+
+  server2 "cwop.aprs.net" {
+    enabled false;
+    timeout 300;
+    connect.interval 30;
+    stats.interval 3600;
+
+    #####
+    # PORT <int>
+    #
+    # Port of APRS server you want to connect to.  Standard APRS daemon server
+    # to server port is 23.
+    #
+    port 10152;
+
+    burst "bursts/auth.burst";
+  } # openaprs.server
+
+  stats {
+    ####
+    # REPORT <int>
+    # 
+    # How often in seconds to send statistics report to log files.
+    #
+    enable true;
+    report 300;
+  }
+
+  path {
+
+    #####
+    # CONFIG <string>
+    #
+    # Relative path to openaprs's config file from where the binary is started.
+    #
+    config "etc/openaprs.conf";
+
+    #####
+    # PID <string>
+    #
+    # Relative path to pid file that should be written to on startup in
+    # background mode.
+    #
+    pid "openaprs.pid";
+
+    #####
+    # LOGS <string>
+    #
+    # Directory to place log files.
+    #
+    logs "logs/" {
+
+      #####
+      # openaprs <string>
+      #
+      # Filename of normal openaprs logging, command logging and misc. functions.
+      #
+      openaprs "openaprs.log";
+
+      #####
+      # DEBUG <string>
+      #
+      # Filename of debug file, provides more verbose logging of bot's actions.
+      #
+      debug "openaprs.debug.log";
+
+      #####
+      # DROPPED <string>
+      #
+      # Filename of debug file that provides all dropped packets.
+      #
+      dropped "openaprs.debug.dropped.log";
+
+      #####
+      # SOCKET <string>
+      #
+      # Filename of debug file that provides all socket output between the
+      # client and server.
+      #
+      socket "openaprs.debug.socket.log";
+
+      #####
+      # PACKET <string>
+      #
+      # Filename of debug file that provides all event data.
+      #
+      packet "openaprs.debug.packet.log";
+    } # openaprs.path.logs
+  } # openaprs.path
+
+  log {
+    #####
+    # FLUSH <bool>
+    #
+    # For debugging this will flush the debug output immediately
+    # when a message is sent.
+    #
+    flush true;
+
+    #####
+    # FILTER <string>
+    #
+    # For debugging this will filter out all packet events
+    # accept those under this tree.
+    #
+    filter "root.aprs.packet" {
+      events "root";
+      sql 0;
+    } # openaprs.filter
+
+    monitor {
+      source "W6CO-5";
+    } # monitor
+  } # openaprs.log
+
+  modules {
+    load "lib/libdcc.so";
+    load "lib/libapns.so";
+    load "lib/librollup.so";
+  } # modules
+} # openaprs
+
+module {
+  apns {
+    ssl {
+      threads 1;
+      maxqueue 100;
+
+      stats {
+        interval 3600;
+      } # stats   
+    } # ssl
+
+    devel {
+      enable true;
+      cert "Certs/apn-dev-cert.pem";
+      key "Certs/apn-dev-key.pem";
+      capath "Certs";
+
+      push {
+        host "gateway.sandbox.push.apple.com";
+        port 2195;
+        timeout 3600;
+      } # push
+
+      feedback {
+        host "gateway.sandbox.push.apple.com";
+        port 2196;
+        timeout 86400;
+      } # feedback
+    } # devel
+
+    prod {
+      enable true;
+      cert "Certs/apn-prod-cert.pem";
+      key "Certs/apn-prod-key.pem";
+      capath "Certs";
+
+      push {
+        host "gateway.push.apple.com";
+        port 2195;
+        timeout 3600;
+      } # push
+
+      feedback {
+        host "gateway.push.apple.com";
+        port 2196;
+        timeout 86400;
+      } # feedback
+    } # prod 
+  } # apns
+
+  dcc {
+    port 2620;
+    threads {
+      worker 2 {
+        client.timeout 60;
+        stats.interval 3600;
+        memcached true {
+          expire 30;
+        } # memcached
+      } # worker
+    } # threads
+  } # dcc
+
+  rollup {
+    weather.interval "2 DAY";
+
+    threads {
+      worker {
+        rollup.interval 5;
+        partition.interval 86400;
+        delete.weather true;
+        limit 1000;
+      } # worker
+    } # threads
+
+    partition {
+      add "raw:10,raw_meta:10,raw_errors:10,messages:10,cache_24hr:10,position:10,telemetry:10,weather:10,packet:10,mem_position:10";
+      drop "raw:1,raw_meta:1,raw_errors:1,messages:30,cache_24hr:2,position:10,telemetry:10,weather:30,packet:2,mem_position:1";
+    } # parititon
+
+    optimize {
+      tables "lastraw,raw,raw_meta,raw_errors,messages,cache_24hr,position,telemetry,weather,packet,lastposition,web_who,web_seeds,telemetry,telemetry_bits,telemetry_unit,telemetry_parm,telemetry_eqns,saved_lastposition,saved_position,save";
+    } # optimize
+  } # rollup
+
+  sat {
+    path {
+      tle "tle/";
+    } #
+  } # sat
+} # module

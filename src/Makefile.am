@@ -1,0 +1,60 @@
+bin_PROGRAMS = openaprs
+openaprs_SOURCES = main.cpp \
+                 DBI.cpp \
+                 Command.cpp \
+                 Create.cpp \
+                 Decay.cpp \
+                 EarthTools.cpp \
+                 Event.cpp \
+                 Feed.cpp \
+                 Insert.cpp \
+                 LineBuffer.cpp \
+                 Log.cpp \
+                 MemcachedController.cpp \
+                 Module.cpp \
+                 ModuleList.cpp \
+                 NMEA.cpp \
+                 Network.cpp \
+                 OpenAPRS_Abstract.cpp \
+                 Options.cpp \
+                 Send.cpp \
+                 Serialize.cpp \
+                 Server.cpp \
+                 Store.cpp \
+                 StdinController.cpp \
+                 Table.cpp \
+                 Uplink.cpp \
+                 Vars.cpp \
+                 Worker.cpp \
+                 eventMESSAGETOACK.cpp \
+                 eventMESSAGETOEMAIL.cpp \
+                 eventMESSAGETOSQL.cpp \
+                 eventMESSAGETOVERIFY.cpp \
+                 eventPOSITIONTOSQL.cpp \
+                 eventRAWTOSQL.cpp \
+                 eventTELEMETRYTOSQL.cpp \
+                 match.cpp \
+                 md5.cpp \
+                 md5wrapper.cpp \
+                 openaprs_string.cpp \
+                 stdinADDMODULE.cpp \
+                 stdinBOOKMARKS.cpp \
+                 stdinDEBUG.cpp \
+                 stdinDTREE.cpp \
+                 stdinDISCONNECT.cpp \
+                 stdinECHO.cpp \
+                 stdinFILTER.cpp \
+                 stdinHASH.cpp \
+                 stdinHELP.cpp \
+                 stdinQUERY.cpp \
+                 stdinQUIT.cpp \
+                 stdinRAW.cpp \
+                 stdinREMOVEMODULE.cpp \
+                 stdinSTATS.cpp \
+                 stdinSHOWCONFIG.cpp \
+                 stdinTESTAPRS.cpp \
+                 stdinLOAD.cpp \
+                 timerAPRSMAIL.cpp
+
+openaprs_LDFLAGS=-lm -lz -lmysqlclient -export-dynamic
+LDADD=../libraries/putmysql/libputmysql.la ../libraries/aprs/libaprs.la

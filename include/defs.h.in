@@ -1,0 +1,96 @@
+/**************************************************************************
+ ** Dynamic Networking Solutions                                         **
+ **************************************************************************
+ ** PBURST9000, Internet Relay Chat Bot                                     **
+ ** Copyright (C) 1999 Gregory A. Carter                                 **
+ **                    Daniel Robert Karrels                             **
+ **                    Dynamic Networking Solutions                      **
+ **                                                                      **
+ ** This program is free software; you can redistribute it and/or modify **
+ ** it under the terms of the GNU General Public License as published by **
+ ** the Free Software Foundation; either version 1, or (at your option)  **
+ ** any later version.                                                   **
+ **                                                                      **
+ ** This program is distributed in the hope that it will be useful,      **
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of       **
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        **
+ ** GNU General Public License for more details.                         **
+ **                                                                      **
+ ** You should have received a copy of the GNU General Public License    **
+ ** along with this program; if not, write to the Free Software          **
+ ** Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.            **
+ **************************************************************************
+ $Id: defs.h.in,v 1.1 2005/11/21 18:36:18 omni Exp $
+ **************************************************************************/
+
+#ifndef __PBURST_DEFS_H
+#define __PBURST_DEFS_H "$Id: defs.h.in,v 1.1 2005/11/21 18:36:18 omni Exp $"
+
+#undef VERSION
+
+/*************************
+ ** Package Definitions **
+ *************************/
+#undef PACKAGE_NAME
+#undef PACKAGE_TARNAME
+#undef PACKAGE_VERSION
+#undef PACKAGE_STRING
+#undef PACKAGE_BUGREPORT
+#undef PACKAGE
+
+/*************
+ ** Headers **
+ *************/
+#undef STDC_HEADERS
+#undef HAVE_SYS_TYPES_H
+#undef HAVE_SYS_STAT_H
+#undef HAVE_STDLIB_H
+#undef HAVE_STRING_H
+#undef HAVE_MEMORY_H
+#undef HAVE_STRINGS_H
+#undef HAVE_INTTYPES_H
+#undef HAVE_UNISTD_H
+#undef HAVE_SYS_FILE_H
+#undef HAVE_UNISTD_H
+#undef HAVE_SYS_STAT_H
+#undef HAVE_SYS_IOCTL_H
+#undef HAVE_SYS_RESOURCE_H
+#undef HAVE_SYS_TIME_H
+#undef HAVE_SYS_FILIO_H
+#undef HAVE_SYS_TYPES_H
+#undef HAVE_SYS_SOCKET_H
+#undef HAVE_NETINET_IN_H
+#undef HAVE_SYS_UN_H
+#undef TIME_WITH_SYS_TIME
+#undef RETSIGTYPE
+#undef HAVE_SYS_TIME_H
+#undef TIME_WITH_SYS_TIME
+#undef HAVE_STRUCT_TM_TM_ZONE
+#undef HAVE_TM_ZONE
+#undef HAVE_GETTIMEOFDAY
+#undef HAVE_SELECT
+#undef HAVE_ASM_IOCTLS_H
+#undef HAVE_XTI_INET_H
+#undef HAVE_SYS_FILIO_H
+
+/***********
+ ** Paths **
+ ***********/
+#undef SPATH
+
+/********************
+ ** Variable Types **
+ ********************/
+// Define to `unsigned int' if <sys/types.h> doesn't define.
+#undef size_t
+
+// Define to `unsigned int' if <sys/types.h> doesn't define.
+#undef socklen_t
+
+#undef in_addr_t
+
+#undef GNU_EXTENSIONS
+#undef HASHMAPNS
+
+#endif
+
