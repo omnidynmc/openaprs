@@ -304,13 +304,13 @@ dnl #########################
 dnl ##Create our Makefiles ##
 dnl #########################
 
-AC_SUBST(CXXFLAGS)    
+AC_SUBST(CXXFLAGS)
 AC_SUBST(INCLTDL)
 AC_SUBST(LIBLTDL)
 AC_SUBST(LIBTOOL_DEPS)
 AC_SUBST(bindir)
 
-AC_DEFINE_UNQUOTED(SPATH, "`pwd`/opeaprs")
+AC_DEFINE_UNQUOTED(SPATH, "`pwd`/openaprs")
 AC_DEFINE([SPATH], ["`pwd`/openaprs"])
 
 ALL_OUTPUT_FILES="$OUTPUT_MODULES src/Makefile Makefile"
