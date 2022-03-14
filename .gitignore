@@ -47,7 +47,6 @@ aclocal.m4
 autom4te.cache/
 config.*
 configure
-m4/
 stamp-h?
 
 /Makefile
@@ -56,7 +55,6 @@ stamp-h?
 /autom4te.cache/
 /config.*
 /configure
-/m4/
 /stamp-h?
 .deps/
 .dirstamp
