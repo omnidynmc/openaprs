@@ -275,7 +275,7 @@ namespace openframe {
   void Result::print(const std::string &label, Result &res) {
     std::string out;
     Result::print(label, res, out);
-    std::cout << out.str();
+    std::cout << out;
   } // Result::print
 
   void Result::print(const std::string &label, Result &res, std::string &ret) {
