@@ -53,7 +53,7 @@ echo "##########################################################################
 
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR([src/main.cpp])
-AM_INIT_AUTOMAKE(openaprs, 1.01.09)
+AM_INIT_AUTOMAKE([openaprs], [1.01.09])
 AM_CONFIG_HEADER(include/defs.h)
 
 AC_ISC_POSIX
