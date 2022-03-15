@@ -56,5 +56,5 @@ openaprs_SOURCES = main.cpp \
                  stdinLOAD.cpp \
                  timerAPRSMAIL.cpp
 
-openaprs_LDFLAGS=-lm -lz -lmysqlclient -lmysqlpp -export-dynamic
+openaprs_LDFLAGS=-lm -lz -lmysqlclient -lmysqlpp -lpthread -export-dynamic
 LDADD=../libraries/putmysql/libputmysql.la ../libraries/aprs/libaprs.la
