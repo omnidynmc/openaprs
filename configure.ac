@@ -68,20 +68,22 @@ CFLAGS="-Wall -pipe -g"
 CXXFLAGS="-Wall -pipe -g"
 CXX="g++"
 
-ofincludedir="`pwd`/libraries/openframe/include"
-oflibdir="`pwd`/libraries/openframe/lib"
+ofincludedir="/usr/local/include/openframe"
+oflibdir="/usr/local/lib"
 
-osincludedir="`pwd`/libraries/openstats/include"
-oslibdir="`pwd`/libraries/openstats/lib"
+osincludedir="/usr/local/include/openstats"
+oslibdir="/usr/local/lib"
 
-stincludedir="`pwd`/libraries/stomp/include"
-stlibdir="`pwd`/libraries/stomp/lib"
+stincludedir="/usr/local/include/stomp"
+stlibdir="/usr/local/lib"
 
 satincludedir="`pwd`/libraries/opensat/include"
 satlibdir="`pwd`/libraries/opensat/lib"
 
+aprsincludedir="`pwd`/libraries/aprs"
+
 LIBS="-L$oflibdir -L$satlibdir -L$oslibdir -L$stlibdir -lopenframe -lopensat -lopenstats -lstomp"
-INCLUDEDIR="-I$ofincludedir -I$satincludedir -I$osincludedir -I$stincludedir"
+INCLUDEDIR="-I$ofincludedir -I$satincludedir -I$osincludedir -I$stincludedir -I$aprsincludedir"
 
 MYSQL_INCLUDE=""
 MYSQL_LIB=""

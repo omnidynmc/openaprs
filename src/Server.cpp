@@ -532,7 +532,7 @@ const bool Server::initializeSystem() {
                                  passcode,
                                  dest);
 
-  _stats->elogger(&elog, "uplink");
+  _stats->set_elogger(&elog, "uplink");
   _stats->start();
 
   _loadBookmarks();

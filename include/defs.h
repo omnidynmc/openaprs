@@ -68,8 +68,8 @@
 #define TIME_WITH_SYS_TIME 1
 #define HAVE_STRUCT_TM_TM_ZONE 1
 #define HAVE_TM_ZONE 1
-/* #undef HAVE_GETTIMEOFDAY */
-/* #undef HAVE_SELECT */
+#define HAVE_GETTIMEOFDAY 1
+#define HAVE_SELECT 1
 #define HAVE_ASM_IOCTLS_H 1
 /* #undef HAVE_XTI_INET_H */
 /* #undef HAVE_SYS_FILIO_H */

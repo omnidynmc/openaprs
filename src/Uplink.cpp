@@ -159,7 +159,7 @@ namespace openaprs {
     _store->init();
 
     _feed = new Feed(_stomp_hosts, _stomp_login, _stomp_passcode, "/queue/feeds.*");
-    _feed->elogger( elogger(), elog_name() );
+    _feed->set_elogger( elogger(), elog_name() );
     _feed->set_connect_read_timeout(0);
     _feed->start();
 

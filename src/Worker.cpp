@@ -172,7 +172,7 @@ namespace openaprs {
                      "/topic/feed.errors.aprs.is");
 // FIXME
 //    _feed->elogger( elogger(), elog_name() );
-    _feed->elogger( &elog, "uplink" );
+    _feed->set_elogger( &elog, "uplink" );
     _feed->set_connect_read_timeout(0);
     _feed->start();
 

@@ -32,6 +32,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <vector>
 
 #include <dlfcn.h>
 #include <fcntl.h>
@@ -240,7 +241,7 @@ namespace openaprs {
       << _input.length();
     out = s.str();
 
-    aprs::StringTool::pad(out, " ", _statusCoord->width());
+    openframe::StringTool::pad(out, " ", _statusCoord->width());
     mvwprintw(_secondaryWindow, _statusCoord->y(), _statusCoord->x(), "%s", out.c_str());
     wmove(_secondaryWindow, y, x);
   } // StdinController::_printStatus
