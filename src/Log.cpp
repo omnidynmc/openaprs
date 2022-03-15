@@ -221,7 +221,7 @@ Log &Log::operator<<(const unsigned short int &appendMe) {
 
 Log &Log::operator<<(const stringstream &appendMe) {
   if (myFile.is_open() == true)
-    myFile << appendMe;
+    myFile << appendMe.str();
   return *this;
 } // Log &Log::operator<<
 
