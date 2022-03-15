@@ -78,3 +78,5 @@ stamp-h?
 .libs/
 *.l[ao]
 *~
+
+!include/config.h
