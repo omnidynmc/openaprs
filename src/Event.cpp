@@ -166,7 +166,7 @@ Event &Event::operator<<(const unsigned short int &appendMe) {
 
 Event &Event::operator<<(const stringstream &appendMe) {
   if (myFile.is_open() == true)
-    myFile << appendMe;
+    myFile << appendMe.str();
   return *this;
 } // Event &Event::operator<<
 
