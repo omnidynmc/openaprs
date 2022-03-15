@@ -34,7 +34,6 @@
 
 #include "PutMySQL.h"
 
-#include "config.h"
 #include "mysql.h"
 
 namespace putmysql {
